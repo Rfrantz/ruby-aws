@@ -3,55 +3,11 @@ require "aws-sdk-core"
 require "rubygems"
 require "io/console"
 require "pry"
+load "languages/pt-br.rb"
+load "classes/classes.rb"
+load "classes/classe-objeto.rb"
 
 operacao = "listar"
-listando = "
-                                          - LISTANDO BUCKETS...
-"
-opcoes = "
-                              ----------------------------------------------
-                              -------    Utilize os comando abaixo   -------
-                              ----------------------------------------------
-                              -------   delete  =>  DELETAR BUCKET   -------
-                              -------   listar  =>  LISTA BUCKETS    -------
-                              -------   criar   =>  CRIA BUCKET      -------
-                              -------   upload  =>  SOBE OBJETOS     -------
-                              -------   url     =>  BUCKET URL       -------
-                              -------   acesso  =>  ACESSOS          -------
-                              -------   baixar  =>  DOWNLOAD         -------
-                              -------   sair    =>  FECHA APP        -------
-"
-
-apresentacao = <<DOC
-
-
-
-
-                             - BEM VINDO A INTEGRAÇÃO AWS COM RUBY -
-
-                ***********************************************************************
-                *                                                                     *
-                *  ======= Este é um teste de interação com a AWS com o Ruby  ======  * 
-                *  ================   que permite os seguintes:   ==================  *
-                *                                                                     *
-                *  _________________________________________________________________  *
-                *                                                                     *
-                *                     | CRIAR BUCKET                                  *
-                *                     | URL DO BUCKET                                 *
-                *                     | DELETAR BUCKET                                *
-                *                     | UPLOAD DE ARQUIVO                             *
-                *                     | DOWNLOAD DE OBJETO                            *
-                *                     | LISTAR BUCKETS/OBJETOS                        *
-                *                                                                     *
-                ***********************************************************************
-                | Criado em Ruby [por] Raphael Gallotti Frantz
-
-
-DOC
-
-termino_periodo = "
-                  ==================================================================="
-
 region = "us-west-2"
 # region = "us-east-1"
 
@@ -59,9 +15,6 @@ Aws.use_bundled_cert!
 Aws.config.update(credentials: Aws::Credentials.new("AKIAJP7SCMDFGEUU6FFQ", "wWlyFiFCmjR7wq3TaE2iFX87ba2mdalBqiZA23Ov"))
 client = Aws::S3::Client.new(region: region)
 s3 = Aws::S3::Resource.new(client: client)
-
-load "classes/classes.rb"
-load "classes/classe-objeto.rb"
 
 manipula_buckets = ManipulaBuckets.new(s3)
 manipula_objetos = ManipulaObjetos.new(s3, client)
